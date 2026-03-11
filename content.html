@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<HTML lang="ru">
+
+<HEAD>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel=stylesheet type=text/css href=..\..\Bin\system.css>
+    <link rel=stylesheet type=text/css href=..\..\Bin\table.css>
+    <script type="text/javascript" src="..\..\Bin\report.js"></Script>
+    <script type="text/javascript" src="..\..\Bin\sumParser.js"></Script>
+    <base href="localhost:3000/">
+    <script>
+        var DATA =[#@prmTBodyContent];
+        var COL_NAMES =#@prmColNames;
+        var SORT_BY = {
+            rus: '#@prmRusSortBy',
+            eng: '#@prmEngSortBy'
+        }
+    </script>
+</HEAD>
+
+<BODY onload="starter()">
+    <div class="header">
+           <div class="RusCapt" id='rusCaption'>#@prmRusCap</div>
+    </div>
+         <div class="header_lev2">
+               <div class="Janre"></div>
+                <div class="order hidden" id="prepareorder">
+                     <button class="clpsBtn" onclick="prepareOrder()">Order</button>
+                </div>
+                <div class="seasonBtn hidden" id="season">
+                          <button class="clpsBtn wideBtn" onclick="seasonBtnClick()">Seaeons Only</button>
+                          <input class="seasonInp" id="seasonCtrl" type="range" value="1" min="1" max="12" oninput="setSeasonMounth()">
+                          <div class="MounthCont"><div class="mounthCapt">Mounth: </div><div class="MounthVal"></div></div>
+                    </div>
+                    <div class="collapseBtn" id="collapser">
+                          <button class="clpsBtn" onclick="collapseBtnClick()">Hide</button>
+                    </div>
+        </div>
+    
+   
+    <div class="content"> </div> 
+    <div>#@prmiTog</div>
+    <div class="hiddenData" id='engCaption'>#@prmEngCap</div>
+
+</BODY>
+
+</HTML>

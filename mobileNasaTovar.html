@@ -1,0 +1,514 @@
+﻿<!DOCTYPE HTML>
+<HTML>
+
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta charset="windows-1251">
+ <script type="text/javascript" src="allgoods.js"></script> 
+
+<style>
+
+
+
+body {
+  width: auto;
+  width: auto;
+  background: linear-gradient(#aaa 0, #ddd 10px, #eae9cd 55px);
+  border: 1px solid black;
+  padding: 10px 20px;
+  box-shadow: 5px 0px 30px #000;
+  border-radius: 8px;
+}
+
+.RusCapt {
+  clear: both;
+  float: left;
+  width: 95%;
+  margin: auto;
+  font-weight: 600;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  font-size: 24px;
+  line-height: 40px;
+  background:#6c83ff;
+  border: 1px solid #fff;
+  padding: 10px 15px 9px 3%;
+  color: white;
+  border-radius: 0 10px 0 10px;
+  box-shadow: inset 0 0 5px rgba(53, 86, 129, 0.5);
+  font-family: "Muli", sans-serif;
+  box-shadow: 5px 0px 30px #000;
+}
+
+.Caption{
+  float: left;
+  width: 15%;
+  margin: auto;
+  text-align: right;
+  padding-top: 11px;  
+}
+
+.MenuBtn{
+  float: left;
+  width: 70px;
+  height: 49px;
+  font-size: 72px;
+  background:#85bf70;
+  color: #000;
+  text-align: center;
+  font-weight: 800;
+  border-radius: 0 10px 0 10px;
+  margin-top: 6px;
+  padding-top: 5px;
+  box-shadow: 5px 0px 30px rgb(255, 255, 255);
+}
+
+.SearchWindow{
+  visibility: visible;
+  float: left;
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  padding: 10px 0 10px 0;  
+}
+
+.sLine {
+  width: 50%;
+  margin: auto;
+  height  : 40px;
+  align-items: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: x-large;
+  font-weight: 600;
+  color:black;
+  text-shadow: 0 -1px rgba(247, 247, 247, 0.6);
+  border-radius: 0 10px 0 10px;
+  background: bottom;
+  padding-left: 15px;
+}
+
+.sLineCapt{
+  padding: 10px 0 10px 0;  
+  font-weight: 700;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.6);
+}
+
+.iFooter {  
+  clear: both;
+  width: 95%;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background:#6c83ff;
+  color: #fff;
+  text-align: center;
+  border: 1px solid #fff;
+  border-radius: 0 10px 0 10px;
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: x-large;
+  box-shadow: 5px 0px 30px rgb(0, 0, 0);
+}
+
+.Menu{
+  visibility: hidden;  
+  text-align: left;
+  width: auto;  
+  float: left;
+  padding-left: 5px;
+  margin: auto;
+  height: 0;
+}
+
+.tdStyle{
+  padding: 5px 8px 5px 8px;
+  text-align: center;
+}
+
+.resTab{
+  float: left;
+  width: 95%;
+  margin: auto;
+  text-align: center;
+  padding: 20px 20px 20px 20px;
+}
+
+.trHeaderStyle{
+  margin:auto; 
+  width:auto; 
+  background: #a1b9ff;
+  font-weight: 600;
+  padding: 0 3px 0 3px;
+}
+
+.list{
+  text-align: left;
+  color: rgb(87, 73, 219);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: x-large;
+  }
+
+
+.list li:hover{
+  font-size: x-large;
+  color: rgb(26, 8, 129);
+  font-style: italic;
+}
+
+.ZavozWnd{
+  visibility: hidden;
+  position: fixed;    
+  z-index: 9999;
+  top: 33%;
+  width: auto;
+  margin: 0 33% 0 33%;
+  height: auto;  
+  padding: 20px;
+  border-radius: 5px;      
+  background:#04071a;
+  border: 1px solid #fff;
+  border-radius: 0 10px 0 10px;
+  box-shadow: 5px 0px 30px rgb(0, 0, 0);
+}
+
+.ReportTable{
+  border: none;    
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: auto;
+  margin: auto;
+  box-shadow: 5px 0px 30px #000;
+}
+
+td {
+  width: auto;
+  text-align: center;  
+  padding: 0 5px 0 5px;
+}
+
+tr {
+  text-align: center;
+  color: black;
+  padding: 0 5px 0 5px;
+  background:rgb(166, 255, 196) ;
+  padding: 5px;
+}
+
+.BillHeader, .BillFooter{  
+  width: auto;  
+  margin-top : 5px;
+  text-align: center;  
+  padding: 10px 5px 0 5px;
+  visibility: hidden;
+}
+
+</style>
+</HEAD>
+
+<BODY onload="loadMainMenu()">
+  
+  <div class="RusCapt">
+    <div class="MenuBtn" onclick="MenuClick()">	&#8801</div>      
+    <div class="SearchWindow" id="SearchWindow">
+      <label class="sLineCapt" for="sLine">Gooogle:</label>
+      <input class="sLine" id="sLine" type="text" placeholder="Введите код или название..">
+      <button onclick="Search()">Search</button>
+    </div>  
+  <div class="Caption" onclick="CleraArea()">N.A.S.A.:: Товары</div>
+  </div>
+  
+<div id="ZavozWnd" class="ZavozWnd" onclick="HideZavWnd()"></div>
+
+<div id="mainMenu" class="Menu"></div>
+<div id="BillHeader"  class="BillHeader">
+  <table class="ReportTable">
+      <tr>
+          <td>Код завоза</td><td>Дата</td><td>Поставщик</td>
+      </tr>
+      <tr id="trRes" style="background: #96c1f1;">
+      </tr>
+  </table>
+</div>
+<div id="resTable" class ="resTab">Нажмите меню или введите код или название...</div>            
+<div id="BillFooter" class="BillFooter"></div>
+<div class="iFooter">N.A.S.A. @2021</div>
+
+<script>
+    const data = [#@prmJSON];
+    var POS_X = 0;
+    var POS_Y = 0;
+
+    const getTips = (jsonData) =>{
+      var tipArr =[];            
+      var res =[];  
+
+      jsonData.forEach(element => {
+          tipArr.push(element.tip.toLowerCase());
+        });
+
+      tipArr.sort();
+      
+      res.push(tipArr[0]);
+      for (let i = 0; i < tipArr.length-1; i++) {
+          if (tipArr[i] != tipArr[i+1]) {
+            res.push(tipArr[i+1]);
+          }
+      }
+      return res;
+    }
+
+    function loadMainMenu(){
+      var s='<div class="mainMenu"><ul class="list">';        
+      var tipArr = getTips(data);
+        inx=0;
+        tipArr.forEach(elm => {
+          s=s+`<li id="tip${inx}" onclick="tipClick(${inx})">${elm}</li>`;
+          inx++;
+      });
+      var res = document.getElementById("mainMenu");      
+      res.innerHTML = s + '</ul></div>';
+
+    //  document.body.addEventListener('click',(e)=>{
+    //    POS_X = e.clientX;
+    //    POS_Y = e.clientY;
+    //    console.log(POS_X,POS_Y);
+    //    })
+    }
+
+    function tipClick(tip){
+      var res = document.getElementById("resTable");
+      res.setAttribute("style","visibility:visible") ;     
+      res.innerHTML = getTovByTip(tip);
+      MenuHide();
+    }
+    
+   function getTovByTip(tip){                
+        var res =[];      
+        var tp = document.getElementById("tip"+tip).innerText;
+        data.forEach(el => {
+            if (el.tip.toLowerCase() == tp){
+                res.push(el);
+            }
+        });
+        return MakeReport(res);
+    }
+
+    function getByTip(tip){                
+        var res =[];              
+        data.forEach(el => {
+            if (el.tip.toLowerCase() == tip.toLowerCase()){
+                res.push(el);
+            }
+        });
+        return MakeReport(res);
+    }
+
+    function tipClick2(tip){
+      var res = document.getElementById("resTable");
+      res.setAttribute("style","visibility:visible") ;     
+      res.innerHTML = getByTip(tip);
+      MenuHide();
+    }    
+
+
+    function MakeReport(res){
+        var sdata = [];
+        var scol = [];
+        var tr ='';
+
+    //Colums names section                 
+       const cols = ['kod', 'nazvanie', 'vhcena', 'cena', 'roznica', 'ostatok', 'tip', 'procent'];
+       const rusCols = ['Код','Название','ВхЦена','Цена','Розн','Ост','Тип','%'];
+
+       const setColNames = (col)=>{
+            var ar=[];
+              rusCols.forEach(names=> ar.push(`<td class="tdStyle">${names}</td>`));
+              const v = '<tr class="trHeaderStyle">\n<td class="tdStyle">No</td>\n';
+              return v+ar.join('\n')+'</tr>\n';
+          }
+          //End of colums names section  
+
+        const header = '<table class="ReportTable"><tbody>\n';
+
+            res.forEach((el,index) => {                                          
+               tr = `<tr style="background:${index % 2 === 0 ? "#b3e8b3": "#a1b9ff"}">\n` +
+                    `<td>${index+1}</td>\n`;
+                
+                cols.forEach(names=>{
+                  var addstyle = '';
+                  var addLink = el[names];
+                  
+                  if (names == 'kod'){
+                      addLink = `<p onclick="ShowTipbyCode('${el[names]}')">${el[names]}</p>`;
+                      addstyle = 'style="font-weight:bold"';
+                  }                                     
+
+                  if (names == 'tip'){
+                      addLink = `<p onclick="tipClick2('${el[names]}')">${el[names]}</p>`;
+                      addstyle = 'style="font-weight:bold"';
+                  }                   
+
+                  if (names=='ostatok') {
+                    if (el[names]<1) {
+                     addstyle = 'style="font-weight:bold;color:red"';
+                    } else {addstyle = 'style="font-weight:bold"';}
+                  }
+
+                  if(names=='vhcena'){
+                    addstyle = 'style="font-weight:bold;color:blue"';
+                  }
+                  
+                  scol.push(`<td ${addstyle}>${addLink}</td>\n`);
+                })  //end col.map
+
+                sdata.push(tr+scol.join('')+'</tr>\n');
+                scol.length = 0;
+            
+            }) //enf of map.data                     
+
+        return header+setColNames(cols)+sdata.join('')+'</tbody></table>\n';
+    }
+
+  function jsonToArr(jsn){
+    var cols = [];             
+         for (const key in jsn) {
+           if (Object.hasOwnProperty.call(jsn, key)) {          
+             cols.push(key);
+           };
+         };            
+         return cols;
+  } 
+
+  function getInfByCode(kod){
+    var res = []; 
+    res.push('<table class="RaportTable">');
+    data.forEach(elm => {
+      if (elm.kod == kod) {
+          var zavN = jsonToArr(elm.zav);                  
+            res.push('<tr>');
+            res.push(`<td>Дата</td> <td>КодЗав</td><td>Постав</td><td> Кол-во</td><td>ВхЦена</td>`);                        
+            res.push('</tr>');
+
+          for (let i = 0; i < zavN.length; i++) {                              
+            var v = elm.zav[zavN[i]];
+            res.push(`<tr style="background:${i % 2 === 0 ? "#b3e8b3": "#a1b9ff"}">`);
+            res.push(`<td> ${v.dateZav}</td> <td onclick="getZavozBill('${v.kodZav}','${v.dateZav}','${v.postav}')">${v.kodZav}</td><td onclick="getPostavTov('${v.postav}')"> ${v.postav}</td><td> ${v.kol}</td><td> ${v.inPrice}</td>`);                        
+            res.push('</tr>');
+        }                      
+      };
+    });    
+    res.push('</table>');
+    return res;
+  }
+
+  function getPostavTov(postav) {
+    var arr =[];
+    data.forEach(el => {
+      var zavN = jsonToArr(el.zav)
+      for (let i = 0; i < zavN.length; i++) {
+        var v = el.zav[zavN[i]];              
+      if (v.postav == postav){
+        arr.push(el);        
+      }
+    }
+    });
+    var res = document.getElementById("resTable");      
+        res.innerHTML = MakeReport(arr);          
+    var dh = document.getElementById("BillHeader");      
+            dh.setAttribute('style','visibility:visible;');     
+    var df = document.getElementById("trRes");              
+        df.innerHTML = `<td colspan=3>${postav}</td>`;        
+  }
+
+  function getZavozBill(kodZav,dateZav,postav) {
+    var arr =[];
+    data.forEach(el => {
+      var zavN = jsonToArr(el.zav)
+      for (let i = 0; i < zavN.length; i++) {
+        var v = el.zav[zavN[i]];              
+      if (v.kodZav == kodZav){
+        arr.push(el);        
+      }
+    }
+    });
+
+    var res = document.getElementById("resTable");      
+        res.innerHTML = MakeReport(arr);
+    var dh = document.getElementById("BillHeader");      
+            dh.setAttribute('style','visibility:visible;');     
+    var df = document.getElementById("trRes");              
+        df.innerHTML = `<td>${kodZav}</td><td>${dateZav}</td><td onclick="getPostavTov('${postav}')">${postav}</td>`;
+  }
+
+  function ShowTipbyCode(kod){
+    var dv = document.getElementById("ZavozWnd");     
+    //var rs = document.getElementById("resTable");     
+    //console.log(rs.left,rs.top);
+    //dv.setAttribute('style',`visibility:visible; top:${Number(POS_X-rs.left)}px; left:${Number(POS_Y-rs.top)}px`);        
+    dv.setAttribute('style','visibility:visible;');        
+    dv.innerHTML = getInfByCode(kod).join(' ');    
+  }
+
+function Search(){
+  var res = document.getElementById("sLine").value;   
+   var sl = res.split(' ');   
+  var  ar = [];
+  var  ok = k = 1;
+   data.forEach(el => {
+
+    if (el.kod.toLowerCase() == res) {
+      ar.push(el);
+    }
+
+     sl.forEach(wrd =>{
+        if (el.nazvanie.toLowerCase().match(wrd)) {ok=1;} else {ok=0;}
+        k=k*ok;
+    })        
+
+    if (k==1) {ar.push(el);}
+    k=1;
+  });     
+  var res = document.getElementById("resTable");      
+      res.innerHTML = MakeReport(ar);
+}
+
+function HideZavWnd(){
+  HideComponent("ZavozWnd");
+  //var dv = document.getElementById("ZavozWnd");     
+  //  dv.setAttribute('style','visibility:hidden;');   
+}
+
+const HideComponent = (comp) =>{
+  var cmp = document.getElementById(comp);      
+      cmp.setAttribute('style','visibility:hidden;'); 
+}
+
+const ShowComponent = (comp) =>{
+  var cmp = document.getElementById(comp);      
+      cmp.setAttribute('style','visibility:visible;'); 
+}
+
+function MenuClick(){
+  var dv = document.getElementById("mainMenu");     
+    dv.setAttribute('style','visibility:visible; height:auto;'); 
+  HideComponent("resTable");
+  HideComponent("BillHeader");
+  //  var dz = document.getElementById("resTable");     
+  //  dz.setAttribute('style','visibility:hidden;');
+  //  var dh = document.getElementById("BillHeader");      
+  //  dh.setAttribute('style','visibility:hidden;');         
+}
+
+function MenuHide(){
+  var dv = document.getElementById("mainMenu");     
+    dv.setAttribute('style','visibility:hidden; height:0;');      
+}
+
+function CleraArea(){
+  document.getElementById("resTable").innerHTML ='';
+}
+
+</script>
+</BODY>
+</HTML>

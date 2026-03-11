@@ -1,0 +1,206 @@
+html {
+  background: #d8f4f5;
+  width: auto;
+  margin: auto;
+}
+
+body {
+  width: auto;
+  width: auto;
+  background: linear-gradient(#aaa 0, #ddd 10px, #eae9cd 55px);
+  border: 1px solid black;
+  padding: 10px 20px;
+  box-shadow: 5px 0px 30px #000;
+  border-radius: 8px;
+}
+.hiddenData {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.header{
+    color: white;
+    background-color: #1c4267;
+    font-size: 26px;
+    font-family: 'Tahoma';
+    text-align: center;
+    padding:8px;
+    border-bottom:1px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2); 
+}
+
+.header_lev2{
+    margin: 3px 0 3px 0;
+    position: sticky;
+    top:0;
+    background-color: #99FF99;
+    z-index:1000;
+    border-bottom:1px solid #ccc;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    gap:15px;
+    padding:5px 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2); 
+}
+
+.wideBtn{
+    width: 30%;
+}
+.seasonBtn{
+display: flex;
+  width: 40%;
+  align-content: space-between;
+}
+
+.MounthCont{
+    display: block;
+    width: 40%;
+    color:#2f5fe0;
+    font-weight: bold;
+    font-family: 'Tahoma';
+    padding: 12px 12px; 
+}
+.mounthCapt{
+    float: left;
+}
+.MounthVal{
+    float: left;
+}
+
+.Janre{
+    float: left;
+    width: 80%;
+    font-weight: bold;
+    font-family: 'Tahoma';
+    padding: 12px 12px; 
+}
+
+.order{
+    float: left;
+    width: 20%;
+}
+
+.clpsBtn{
+    background:#4a7cff;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+
+    padding:6px 14px;
+    font-size:14px;
+    font-weight:600;
+
+    cursor:pointer;
+    transition:all 0.2s ease;
+
+    box-shadow:0 2px 4px rgba(0,0,0,0.15);
+}
+
+.clpsBtn:hover{
+    background:#2f5fe0;
+    box-shadow:0 3px 6px rgba(0,0,0,0.25);
+}
+
+.clpsBtn:active{
+    transform:translateY(1px);
+    box-shadow:0 1px 2px rgba(0,0,0,0.2);
+}
+
+.collapseBtn {
+   float: right;      /* фиксируем кнопку */
+  width: 20%;
+  margin: auto;
+}
+
+
+.notfound{
+   text-align: center;          /* Центрируем текст */
+  font-family: Arial, sans-serif;
+  font-size: 2rem;             /* Крупный размер шрифта */
+  color: #ff4d4d;              /* Красный оттенок для акцента */
+  margin:  50px 0 50px 0;    
+}
+
+.iTog {
+  font-size: 18px;
+  text-align: center;
+  color: #ffffff;
+  font-family: Comic Sans Ms;
+  background: #5f0a34;
+  border-radius: 10px 10px 10px 10px;
+  width: 33%;
+  margin: auto;
+  margin-bottom: 5px;
+  padding: 5px 0 5px 0;
+}
+
+/* Общие стили для самого элемента */
+input[type="range"] {
+  -webkit-appearance: none; /* Chrome/Safari */
+  width: 100%;
+  background: transparent; /* убираем фон */
+}
+
+/* Chrome, Safari, Edge (WebKit/Blink) */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #ff416c;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: #ddd;
+  border-radius: 2px;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #ff416c;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: #ddd;
+  border-radius: 2px;
+}
+
+/* IE10/11 */
+input[type="range"]::-ms-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #ff416c;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: 4px;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type="range"]::-ms-fill-lower {
+  background: #ff416c;
+  border-radius: 2px;
+}
+input[type="range"]::-ms-fill-upper {
+  background: #ddd;
+  border-radius: 2px;
+}

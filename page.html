@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue + Сезонность</title>
+  <style>
+    .header {
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      color: #fff;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      padding: 12px 0;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .header_lev2 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f5f5f5;
+      padding: 8px 12px;
+      border-bottom: 1px solid #ddd;
+    }
+    .seasonInp { width: 200px; }
+    .clpsBtn { padding: 6px 12px; margin: 0 4px; }
+    table { border-collapse: collapse; margin-top: 20px; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 6px; text-align: center; }
+    .SeasonSelected { background: #ff416c; color: #fff; }
+    .hiSeason { background: #ffe0e6; }
+    .pikSeason { background: #ff99b3; }
+    .topSeason { background: #ff416c; color: #fff; }
+  </style>
+</head>
+<body>
+<div id="app">
+  <header class="header">
+    <div class="RusCapt">{{ rusCaption }}</div>
+  </header>
+
+  <div class="header_lev2">
+    <div class="seasonBtn" v-if="showSeason">
+      <button class="clpsBtn" @click="seasonBtnClick">Seasons Only</button>
+      <input class="seasonInp" type="range" v-model="seasonCtrl" min="1" max="12" @input="setSeasonMonth" />
+      <div class="MounthCont">
+        <div class="mounthCapt">Месяц:</div>
+        <div class="MounthVal">{{ monthName }}</div>
+      </div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Тип</th>
+        <th v-for="m in 12" :key="m" :class="{SeasonSelected: seasonCtrl===m}">
+          {{ COL_NAMES[String(m).padStart(2,'0')] }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="row in rows" :key="row.tip">
+        <td>{{ row.tip }}</td>
+        <td v-for="(val, idx) in row.data" :key="idx"
+            :class="highlightClass(val, row.max, idx+1)">
+          {{ val }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+const COL_NAMES = {
+  "01":"Январь","02":"Февраль","03":"Март","04":"Апрель",
+  "05":"Май","06":"Июнь","07":"Июль","08":"Август",
+  "09":"Сентябрь","10":"Октябрь","11":"Ноябрь","12":"Декабрь"
+};
+
+const app = Vue.createApp({
+  data() {
+    return {
+      rusCaption: "Сезонность - 2025 год",
+      seasonCtrl: 1,
+      showSeason: true,
+      monthName: COL_NAMES["01"],
+      COL_NAMES,
+      rows: [
+        { tip: "Батарейки", data: [13508,10016,7552,8204,8224,8495,10459,11274,13116,22972,24389,26989], max: 26989 },
+        { tip: "Белизна", data: [1936,1465,2064,1237,1218,1502,1975,1668,1965,1453,1576,1123], max: 2064 },
+        { tip: "Бижутерия", data: [299,102,169,334,114,136,370,773,303,82,126,158], max: 773 }
+      ]
+    };
+  },
+  methods: {
+    seasonBtnClick() {
+      this.showSeason = !this.showSeason;
+    },
+    setSeasonMonth() {
+      const mm = String(this.seasonCtrl).padStart(2,"0");
+      this.monthName = this.COL_NAMES[mm];
+    },
+    highlightClass(val, max, monthIndex) {
+      if (monthIndex !== this.seasonCtrl) return "";
+      if (val > max*0.95) return "topSeason";
+      if (val > max*0.9) return "pikSeason";
+      if (val > max*0.8) return "hiSeason";
+      return "";
+    }
+  }
+});
+
+app.mount("#app");
+</script>
+</body>
+</html>

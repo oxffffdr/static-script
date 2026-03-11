@@ -1,0 +1,95 @@
+﻿<div class="NumPnl" id="NumPanel">
+<input type="hidden" id="tvResult"/>
+<input type="hidden" id="PanelVal"/>
+<input type="hidden" id="WhoCalls" />
+
+    <table class="NumTable">
+        <tr>
+             <td class="ipTV" id="tv"  colspan="4"></td>
+             <td class="FuncKeyClose" onclick="KeyClick('dl')">X</td>
+        </tr>
+        <tr>
+            <td class="NumKey" onclick="KeyClick('А')">А</td>
+            <td class="NumKey" onclick="KeyClick('Ф')">Ф</td>
+            <td class="NumKey" onclick="KeyClick('В')">В</td>
+            <td class="NumKey" onclick="KeyClick('Н')">Н</td>
+            <td class="FuncKey" onclick="KeyClick('bs')">&#8678;</td>
+        </tr>
+        <tr>
+            <td class="NumKey" onclick="KeyClick('С')">С</td>
+            <td class="NumDig" onclick="KeyClick('7')">7</td>
+            <td class="NumDig" onclick="KeyClick('8')">8</td>
+            <td class="NumDig" onclick="KeyClick('9')">9</td>
+            <td class="FuncKey" onclick="KeyClick('cc')">&#x00a9;</td>
+        </tr>
+        <tr>
+            <td class="NumKey" onclick="KeyClick('Т')">Т</td>
+            <td class="NumDig" onclick="KeyClick('4')">4</td>
+            <td class="NumDig" onclick="KeyClick('5')">5</td>
+            <td class="NumDig" onclick="KeyClick('6')">6</td>            
+            <td class="FuncKey" onclick="KeyClick('en')" rowspan="2">&#10003;</td>            
+        </tr>
+        <tr>            
+            <td class="NumKey" onclick="KeyClick('О')">О</td>
+            <td class="NumDig" onclick="KeyClick('1')">1</td>
+            <td class="NumDig" onclick="KeyClick('2')">2</td>
+            <td class="NumDig" onclick="KeyClick('3')">3</td>            
+        </tr>
+        <tr>
+            <td class="NumKey" onclick="KeyClick('К')">К</td>
+            <td class="NumKey" onclick="KeyClick('Б')">Б</td>
+            <td class="NumDig" onclick="KeyClick('0')">0</td>
+            <td class="NumKey" onclick="KeyClick('П')">П</td>
+            <td class="NumKey" onclick="KeyClick('Е')">Е</td>            
+        </tr>
+        <tr>
+            <td class="NumKey2" onclick="KeyClick('ящ')">ящ</td>
+            <td class="NumKey2" onclick="KeyClick('уп')">уп</td>
+            <td class="NumKey2" onclick="KeyClick('шт')">шт</td>
+            <td class="NumKey2" onclick="KeyClick('м')">м</td>
+            <td class="NumKey2" onclick="KeyClick('кап')">кап</td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+function SetPanelPosition()
+{
+var dv = document.getElementById("iContent");
+var h = Number(dv.getBoundingClientRect().top)/2;
+var pnl =  document.getElementById("NumPanel");
+pnl.setAttribute("style","top: "+h+";");
+}
+
+
+function ShowNumPad(id){     
+     var who = document.getElementById("WhoCalls");
+     who.setAttribute("value",id);
+     var numPanel = document.getElementById("NumPanel");
+     numPanel.setAttribute("style","visibility: visible; height: 300px;");          
+    }
+
+function KeyClick(key){
+var res = document.getElementById("tv");
+var answ = document.getElementById("tvResult");
+var NumPnl = document.getElementById("NumPanel");
+var i = 0; 
+    if (key=="bs"){i=1; var s = res.innerText; res.innerText = s.slice(0,-1);};
+    if (key=="dl"){i=1; NumPnl.setAttribute("style","visibility:hidden");};
+    if (key=="cc"){i=1; var s = res.innerText; res.innerText = "";};
+    if (key=="en"){
+        i=1;        
+        var who = document.getElementById("WhoCalls");                
+        var wv = who.value;
+        var Sender = document.getElementById(wv);        
+        Sender.setAttribute("value",res.innerText);                 
+        res.innerText = "";       
+        NumPnl.setAttribute("style","visibility:hidden;");                
+        };
+    if (i==0){ res.innerText=res.innerText+key;}
+}
+
+
+
+</script>
