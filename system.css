@@ -11,7 +11,7 @@ body {
   border: 1px solid black;
   padding: 10px 20px;
   box-shadow: 5px 0px 30px #000;
-  border-radius: 8px;
+  border-radius: 8px; 
 }
 .hiddenData {
     display: none;
@@ -139,68 +139,7 @@ display: flex;
 }
 
 /* Общие стили для самого элемента */
-input[type="range"] {
-  -webkit-appearance: none; /* Chrome/Safari */
-  width: 100%;
-  background: transparent; /* убираем фон */
-}
 
-/* Chrome, Safari, Edge (WebKit/Blink) */
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #ff416c;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-input[type="range"]::-webkit-slider-runnable-track {
-  height: 4px;
-  background: #ddd;
-  border-radius: 2px;
-}
-
-/* Firefox */
-input[type="range"]::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #ff416c;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-input[type="range"]::-moz-range-track {
-  height: 4px;
-  background: #ddd;
-  border-radius: 2px;
-}
-
-/* IE10/11 */
-input[type="range"]::-ms-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #ff416c;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-input[type="range"]::-ms-track {
-  width: 100%;
-  height: 4px;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-input[type="range"]::-ms-fill-lower {
-  background: #ff416c;
-  border-radius: 2px;
-}
-input[type="range"]::-ms-fill-upper {
-  background: #ddd;
-  border-radius: 2px;
+.sesonnost{
+  width: 40%;
 }

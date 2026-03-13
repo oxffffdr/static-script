@@ -1,0 +1,65 @@
+input[type="range"] {
+  -webkit-appearance: none; /* Chrome/Safari */
+  width: 100%;
+  background: transparent; /* убираем фон */
+}
+
+/* Chrome, Safari, Edge (WebKit/Blink) */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #ff416c;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: #ddd;
+  border-radius: 2px;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #ff416c;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: #ddd;
+  border-radius: 2px;
+}
+
+/* IE10/11 */
+input[type="range"]::-ms-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #ff416c;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: 4px;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type="range"]::-ms-fill-lower {
+  background: #ff416c;
+  border-radius: 2px;
+}
+input[type="range"]::-ms-fill-upper {
+  background: #ddd;
+  border-radius: 2px;
+}
