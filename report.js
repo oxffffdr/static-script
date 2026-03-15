@@ -305,3 +305,47 @@ function prepareOrder() {
     var html = MakeReportFromJSON('RP', colNames, ar, '')
     SetContent(html)
 }
+
+function RequestFromDelphi() {
+    document.addEventListener('click', function (e) {
+        var el = e.traget
+        if (!el) return
+        var no = el.id.split('_')[1]
+        var kod = document.getElementById('kod_' + no).innerText
+        var inf = `"id": "${el.id}", "className": "${el.className}", "value": "${kod}"`
+
+        if (el.className.indexOf('kod') > -1) {
+            var msg = `"message": "searchBy_Kod",`
+        }
+        if (names.indexOf('nazv') > -1 || names.indexOf('name') > -1) {
+            var msg = `"message": "searchBy_Name",`
+        }
+
+        if (names.indexOf('kodzak') > -1) {
+            var msg = `"message": "searchBy_Kodzak",`
+        }
+
+        if (names.indexOf('klient') > -1) {
+            var msg = `"message": "searchBy_Client",`
+        }
+
+        if (names.indexOf('postav') > -1) {
+            var msg = `"message": "searchBy_Postav",`
+        }
+
+        if (names.indexOf("kodzav") > -1) {
+            var msg = `"message": "searchBy_Kodzav",`
+        }
+
+        if (names.indexOf('tip') > -1) {
+            var msg = `"message": "searchBy_Tip",`
+        }
+        if (names.indexOf('vhcena') > -1 || names.indexOf('inprice') > -1) {
+            var msg = `"message": "zakaz_zavoz",`
+        }
+        if (names.indexOf('procent') > -1 || names.indexOf('pers') > -1) {
+            var msg = `"message": "priceWindow",`
+        }
+        console.log(msg + inf)
+    })
+}
