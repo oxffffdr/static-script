@@ -312,6 +312,7 @@ function RequestFromDelphi() {
         if (!el) return
         var no = el.id.split('_')[1]
         var names = el.className;
+
         var kod = document.getElementById('kod_' + no).innerText
         var inf = `"id": "${el.id}", "className": "${names}", "value": "${kod}"`
 
