@@ -232,11 +232,9 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
                     addstyle = 'style="text-align:center; width:24px; height:24px"'
                 }
 
-                if (names.toLowerCase().trim().indexOf('ост') > -1 || names == 'ost') {
-                    addLink = '<td class="ost" id="ost_' + index + '">' + el[names] + '</td>'
-                    if (el[names] < 1) {
-                        addstyle = 'style="font-weight:bold;color:red"'
-                    } else { addstyle = 'style="font-weight:bold"' }
+                if (names.toLowerCase().trim().indexOf('ост') > -1 || names.indexOf('ost') > -1) {
+                    el[names] < 1 ? addstyle = "ost red" : addstyle = "ost"
+                    addLink = `<td class="${addstyle}" id="ost_${index}"> ${el[names]}</td>`
                 }
 
                 if (names == 'ВхЦена' || names == 'inPrice' || names == 'vhcena') {
@@ -261,7 +259,7 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
                     addLink = '<td  block="' + BlockCount + '" class="Suma" id="' + names + index + '">' + el[names] + '</td>'
                 }
                 if (names.toLowerCase().indexOf('pers') > -1 || names.toLowerCase().indexOf('proc') > -1) {
-                    addLink = '<td  class="pers" id=pers_"' + index + '">' + el[names] + '</td>'
+                    addLink = '<td  class="pers" id="pers_' + index + '">' + el[names] + '</td>'
                 }
 
                 scol = scol + addLink
@@ -314,9 +312,10 @@ function RequestFromDelphi() {
         var el = e.target
         if (!el) return
         var no = el.id.split('_')[1]
+        var kod = document.getElementById('kod_' + no)
+        if (!kod) return
         var names = el.className;
-        var kod = document.getElementById('kod_' + no).innerText
-        var inf = `"id": "${el.id}", "className": "${names}", "value": "${kod}"`
+        var inf = `"id": "${el.id}", "className": "${names}", "value": "${kod.innerText}"`
 
         if (names.indexOf('kod') > -1) {
             var msg = `"message": "searchBy_Kod",`
@@ -349,7 +348,8 @@ function RequestFromDelphi() {
                                     } else
                                         if (names.indexOf('procent') > -1 || names.indexOf('pers') > -1) {
                                             var msg = `"message": "priceWindow",`
-                                        }
-        console.log(msg + inf)
+                                        } else msg = `"message": "null,"`
+        console.log(msg + inf) // не менять!<- точка обмена с Delphi через TChronium  
+        return JSON.parse(msg + inf)
     })
 }
