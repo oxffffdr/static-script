@@ -308,44 +308,45 @@ function prepareOrder() {
 
 function RequestFromDelphi() {
     document.addEventListener('click', function (e) {
-        var el = e.traget
+        var el = e.target
         if (!el) return
         var no = el.id.split('_')[1]
+        var names = el.className;
         var kod = document.getElementById('kod_' + no).innerText
-        var inf = `"id": "${el.id}", "className": "${el.className}", "value": "${kod}"`
+        var inf = `"id": "${el.id}", "className": "${names}", "value": "${kod}"`
 
-        if (el.className.indexOf('kod') > -1) {
+        if (names.indexOf('kod') > -1) {
             var msg = `"message": "searchBy_Kod",`
-        }
-        if (names.indexOf('nazv') > -1 || names.indexOf('name') > -1) {
-            var msg = `"message": "searchBy_Name",`
-        }
+        } else
+            if (names.indexOf('nazv') > -1 || names.indexOf('name') > -1) {
+                var msg = `"message": "searchBy_Name",`
+            } else
 
-        if (names.indexOf('kodzak') > -1) {
-            var msg = `"message": "searchBy_Kodzak",`
-        }
+                if (names.indexOf('kodzak') > -1) {
+                    var msg = `"message": "searchBy_Kodzak",`
+                } else
 
-        if (names.indexOf('klient') > -1) {
-            var msg = `"message": "searchBy_Client",`
-        }
+                    if (names.indexOf('klient') > -1) {
+                        var msg = `"message": "searchBy_Client",`
+                    } else
 
-        if (names.indexOf('postav') > -1) {
-            var msg = `"message": "searchBy_Postav",`
-        }
+                        if (names.indexOf('postav') > -1) {
+                            var msg = `"message": "searchBy_Postav",`
+                        } else
 
-        if (names.indexOf("kodzav") > -1) {
-            var msg = `"message": "searchBy_Kodzav",`
-        }
+                            if (names.indexOf("kodzav") > -1) {
+                                var msg = `"message": "searchBy_Kodzav",`
+                            } else
 
-        if (names.indexOf('tip') > -1) {
-            var msg = `"message": "searchBy_Tip",`
-        }
-        if (names.indexOf('vhcena') > -1 || names.indexOf('inprice') > -1) {
-            var msg = `"message": "zakaz_zavoz",`
-        }
-        if (names.indexOf('procent') > -1 || names.indexOf('pers') > -1) {
-            var msg = `"message": "priceWindow",`
-        }
+                                if (names.indexOf('tip') > -1) {
+                                    var msg = `"message": "searchBy_Tip",`
+                                } else
+                                    if (names.indexOf('vhcena') > -1 || names.indexOf('inprice') > -1) {
+                                        var msg = `"message": "zakaz_zavoz",`
+                                    } else
+                                        if (names.indexOf('procent') > -1 || names.indexOf('pers') > -1) {
+                                            var msg = `"message": "priceWindow",`
+                                        }
         console.log(msg + inf)
     })
 }
