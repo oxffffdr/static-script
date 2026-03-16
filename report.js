@@ -206,34 +206,34 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
                 }
 
                 if (names.trim().toLowerCase().indexOf('кодзак') > -1 || names.indexOf('kodzak') > -1) {
-                    addLink = '<td><a class="kodzak" href="/report?repID=15&kod=' + el[names] + '">' + el[names] + '</a></td>'
+                    addLink = '<td><a class="kodzak" id="kodzak_' + index + '" href="/report?repID=15&kod=' + el[names] + '">' + el[names] + '</a></td>'
                 }
 
                 if (names.trim().toLowerCase().indexOf('клиент') > -1 || names.indexOf('klient') > -1) {
-                    addLink = '<td><a class="client" href="/report?repID=14&client=' + el[names] + '">' + el[names] + '</a></td>\n'
+                    addLink = '<td><a class="client" id="client_' + index + '" href="/report?repID=14&client=' + el[names] + '">' + el[names] + '</a></td>\n'
                 }
 
                 if (names.trim().toLowerCase().indexOf("постав") > -1 || names.indexOf('postav') > -1) {
-                    addLink = '<td><a class="postav" href="/report?repID=20&postav=' + el[names] + '">' + el[names] + '</a><td>\n'
+                    addLink = '<td><a class="postav" id="postav_' + index + '" href="/report?repID=20&postav=' + el[names] + '">' + el[names] + '</a><td>\n'
                 }
 
                 if (names.trim().toLowerCase().indexOf('кодзав') > -1 || names.indexOf("kodzav") > -1) {
-                    addLink = '<td><a class="kodzav" href="/report?repID=16&kod=' + el[names] + '">' + el[names] + '</a></td>\n'
+                    addLink = '<td><a class="kodzav" id="kodzav_' + index + '" href="/report?repID=16&kod=' + el[names] + '">' + el[names] + '</a></td>\n'
                 }
 
 
                 if (names.toLowerCase().trim().indexOf('тип') > -1 || names.indexOf('tip') > -1) {
-                    addLink = '<td><a class="tip" href="/report?repID=1&tip=' + el[names] + '">' + el[names] + '</a></td>\n'
+                    addLink = '<td><a class="tip" id="tip_' + index + '" href="/report?repID=1&tip=' + el[names] + '">' + el[names] + '</a></td>\n'
                 }
 
                 if (names.toLowerCase().trim().indexOf('блок') > -1 || names.toLowerCase().trim().indexOf('block') > -1) {
                     if (el[names] === false) { addLink = '<img class="unblock" src="/public/img/unlock.ico" width=24px; height=24px>\n' }
-                    else { addLink = '<td><img class="blocked" src="/public/img/lock.ico" width=24px; height=24px></td>\n' }
+                    else { addLink = '<td><img class="blocked" id="blocked_' + index + '" src="/public/img/lock.ico" width=24px; height=24px></td>\n' }
                     addstyle = 'style="text-align:center; width:24px; height:24px"'
                 }
 
                 if (names.toLowerCase().trim().indexOf('ост') > -1 || names == 'ost') {
-                    addLink = '<td class="ost">' + el[names] + '</td>'
+                    addLink = '<td class="ost" id="ost_' + index + '">' + el[names] + '</td>'
                     if (el[names] < 1) {
                         addstyle = 'style="font-weight:bold;color:red"'
                     } else { addstyle = 'style="font-weight:bold"' }
@@ -259,6 +259,9 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
 
                 if (names.toLowerCase().indexOf('summa') > -1 || names.toLowerCase().indexOf('suma') > -1) {
                     addLink = '<td  block="' + BlockCount + '" class="Suma" id="' + names + index + '">' + el[names] + '</td>'
+                }
+                if (names.toLowerCase().indexOf('pers') > -1 || names.toLowerCase().indexOf('proc') > -1) {
+                    addLink = '<td  class="pers" id=pers_"' + index + '">' + el[names] + '</td>'
                 }
 
                 scol = scol + addLink
