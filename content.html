@@ -3,12 +3,11 @@
 
 <HEAD>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel=stylesheet type=text/css href="https://cdn.jsdelivr.net/gh/oxffffdr/static-script@latest/customize.css">
-    <link rel=stylesheet type=text/css href="https://cdn.jsdelivr.net/gh/oxffffdr/static-script@latest/system.css">
-    <link rel=stylesheet type=text/css href="https://cdn.jsdelivr.net/gh/oxffffdr/static-script@latest/table.css">
+    <link rel=stylesheet type=text/css href="../../Bin/customize.css">
+    <link rel=stylesheet type=text/css href="../../Bin/system.css">
+    <link rel=stylesheet type=text/css href="../../Bin/table.css">
     <script type="text/javascript" src="../../Bin/report.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/oxffffdr/static-script@latest/sumParser.js"></Script>
+    <script type="text/javascript" src="../../Bin/sumParser.js"></Script>
     <base href="localhost:3000/">
     <script>
         var DATA =[#@prmTBodyContent];
@@ -16,7 +15,7 @@
         var SORT_BY = {
             rus: '#@prmRusSortBy',
             eng: '#@prmEngSortBy'
-        }
+        };
     </script>
 </HEAD> 
 
@@ -42,8 +41,8 @@
         </div>
     
    
-    <div class="content"> </div> 
-    <div>#@prmiTog</div>
+    <div class="content" id="id_content"> </div> 
+    <div class="iTog hidden" id="itog">#@prmiTog</div>
     <div class="hiddenData" id='engCaption'>#@prmEngCap</div>
 
 </BODY>

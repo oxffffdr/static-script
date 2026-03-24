@@ -114,17 +114,42 @@ padding: 5px;
 .kod{
     padding: 6px 10px;
 }
+.kod:hover{
+background-color: coral;
+font-size: larger;
+}
+
 .ost{
     font-weight: 600;
     color:black
 }
+
+
 .red{
    font-weight: 600;
     color:red;
 }
 
 .inprice{
-color: rgb(63, 50, 149);
+color: rgb(38, 6, 251);
+font-weight: bold;
+}
+
+.inprice:hover{
+background-color: coral;
+font-size: larger;
+}
+
+
+.pers, .srpr, .proc {
+    color: rgb(255, 0, 219);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 18px;
+}
+
+.pers:hover, .srpr:hover, .proc:hover {
+    background-color: coral;
+    font-size: larger;
 }
 
 .colorMax{

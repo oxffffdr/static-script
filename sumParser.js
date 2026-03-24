@@ -8,6 +8,10 @@ function TrunkCent(s) {
     return s.slice(0, s.indexOf('.') + 3)
 }
 
+function isNumeric(value) {
+    return !isNaN(value) && !isNaN(parseFloat(value));
+}
+
 
 function addStyles() {
 
@@ -240,11 +244,35 @@ function checkPersents() {
 }
 
 
+function SumaKolClick() {
+    addStyles()
+    var trs = document.getElementsByClassName('Suma')
+    for (var i = 0; i < trs; i++) {
+        var cell = trs[i]
+        if (cell) {
+            cell.onclick = function () {
+                this.classList.toggle('selected')
+                if (hasClass(this, 'selected')) {
+                    setSelected(this, true)
+                    this.setAttribute('data-check', 'true')
+                } else {
+                    setSelected(this, false)
+                    this.setAttribute('data-check', 'false') // в IE10 атрибуты надо ставить через data-*  у функциях типа addEventListener ! Баг IE
+                }
+                // calcTotal()
+            }
+        }
+    }
+
+    // calchBloks(); // сумма по поставщику
+}
 
 function SelectedSumNeoplocheno() {
     addStyles()
     var bloks = getBolocksCount();
     var trs = document.getElementsByTagName('tr').length - bloks - 1
+    // var trs = document.getElementsByClassName('Suma')
+    //  console.log(trs);
     for (var i = 0; i < trs; i++) {
         var cell = document.getElementById('summa' + i)
         if (cell) {
@@ -629,4 +657,18 @@ function getTopByMounth(mon) {
         }
         //  }
     }
+}
+
+
+
+function SumaZayavka() {
+    var sums = document.getElementsByClassName('Suma')
+    var s = 0;
+    if (!sums) return
+    for (var i = 0; i < sums.length; i++) {
+        if (!sums[i]) continue
+        if (!isNumeric(sums[i].innerText)) continue
+        s = s + Number(sums[i].innerText)
+    }
+    return s;
 }

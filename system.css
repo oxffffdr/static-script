@@ -2,10 +2,12 @@ html {
   background: #d8f4f5;
   width: auto;
   margin: auto;
+    overflow-y: scroll;
+  height: auto;
+  overflow-x: scroll;
 }
 
 body {
-  width: auto;
   width: auto;
   background: linear-gradient(#aaa 0, #ddd 10px, #eae9cd 55px);
   border: 1px solid black;
@@ -13,6 +15,12 @@ body {
   box-shadow: 5px 0px 30px #000;
   border-radius: 8px; 
 }
+
+a {
+  text-decoration: none;
+  color: blue; /* или любой другой цвет */
+}
+
 .hiddenData {
     display: none;
 }
@@ -132,7 +140,7 @@ display: flex;
   font-family: Comic Sans Ms;
   background: #5f0a34;
   border-radius: 10px 10px 10px 10px;
-  width: 33%;
+  width: 50%;
   margin: auto;
   margin-bottom: 5px;
   padding: 5px 0 5px 0;

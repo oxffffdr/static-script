@@ -1,12 +1,15 @@
 function starter() {
-    MakeReport();
+    MakeReport()
     checkPersents();
+    // SumaKolClick();
     SelectedSumNeoplocheno();
     calchBloksSuma();
     showBtn(isCapt('zakaz1tovara'), 'prepareorder');
     showBtn(isCapt('sezonnost'), 'season');
     colorTheTops(isCapt('sezonnost'));
+    if (isCapt('Zayavka')) setITog('Итого: ' + SumaZayavka() + ' грн.')
 }
+
 
 function MakeReport() {
     if (DATA.length === 0) {
@@ -17,6 +20,7 @@ function MakeReport() {
     var colNames = getColNames(COL_NAMES)
     var html = MakeReportFromJSON('ReportTable', colNames, DATA, SORT_BY);
     SetContent(html)
+    showITog()
 }
 
 function getColNames(cols) {
@@ -122,18 +126,26 @@ function setColNames(col, tip) {
 function getEngCapt() {
     return document.getElementById('engCaption').innerText
 }
+function getRusCapt() {
+    return document.getElementById('rusCaption').innerText
+}
 
 function setCapt(rus, eng) {
     document.getElementById('engCaption').innerText = eng
     document.getElementById('rusCaption').innerText = rus
 }
 
-/*function getRUCol(engName) {
-    var { rus, eng } = getColNames(COL_NAMES)
-    var inx = eng.indexOf(engName)
-    return (inx !== -1) ? rus[inx] : engName
+function setITog(val) {
+    var itog = document.getElementById('itog')
+    if (!itog) return
+    itog.classList.toggle('hidden')
+    itog.innerText = val;
 }
-*/
+
+function showITog() {
+    var itog = document.getElementById('itog')
+    if (itog && itog.innerText) itog.classList.toggle('hidden')
+}
 
 function showBtn(see, btn) {
     if (see) document.getElementById(btn).classList.toggle('hidden')
@@ -187,7 +199,7 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
             var addstyle = ''
             //  console.log('row=',index,i,') col=',names)
             if (!(sortByTip && names.toLowerCase() === sortByEng.toLowerCase())) {
-                var addLink = '<td>' + el[names] + '</td>';
+                var addLink = `<td class="${names}" id="${names}_${index}">${el[names]}</td>`;
 
                 if (names == 'barkod') {
                     addLink = '<td class="barkod" id="' + tabName + 'brkd_' + index + ' barkod="' + el[names] + '>' + el[names] + '</td>'
@@ -201,43 +213,43 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
                     addLink = '<td class="pic" id="' + tabName + 'img_' + index + '"> ' + el[names] + '</td>'
                 }
 
-                if (names.indexOf('nazv') > -1 || names.trim().toLowerCase().indexOf('наимен') > -1 || names.trim().toLowerCase().indexOf('назван') > -1) {
+                if (names.indexOf('nazv') > -1 || names.trim().toLowerCase().indexOf('naimen') > -1) {
                     addLink = '<td class="name" id="name_' + index + '">' + el[names] + '</td>\n'
                 }
 
-                if (names.trim().toLowerCase().indexOf('кодзак') > -1 || names.indexOf('kodzak') > -1) {
-                    addLink = '<td><a class="kodzak" id="kodzak_' + index + '" href="/report?repID=15&kod=' + el[names] + '">' + el[names] + '</a></td>'
+                if (names.indexOf('kodzak') > -1 || names.indexOf('kod1zak') > -1) {
+                    addLink = '<td class="kodzak" id="kodzak_' + index + '"><a href="/report?repID=15&kod=' + el[names] + '">' + el[names] + '</a></td>'
                 }
 
-                if (names.trim().toLowerCase().indexOf('клиент') > -1 || names.indexOf('klient') > -1) {
-                    addLink = '<td><a class="client" id="client_' + index + '" href="/report?repID=14&client=' + el[names] + '">' + el[names] + '</a></td>\n'
+                if (names.trim().toLowerCase().indexOf('klient') > -1) {
+                    addLink = '<td class="client" id="klient_' + index + '"><a href="/report?repID=14&client=' + el[names] + '">' + el[names] + '</a></td>\n'
                 }
 
-                if (names.trim().toLowerCase().indexOf("постав") > -1 || names.indexOf('postav') > -1) {
-                    addLink = '<td><a class="postav" id="postav_' + index + '" href="/report?repID=20&postav=' + el[names] + '">' + el[names] + '</a><td>\n'
-                }
-
-                if (names.trim().toLowerCase().indexOf('кодзав') > -1 || names.indexOf("kodzav") > -1) {
-                    addLink = '<td><a class="kodzav" id="kodzav_' + index + '" href="/report?repID=16&kod=' + el[names] + '">' + el[names] + '</a></td>\n'
+                if (names.trim().toLowerCase().indexOf("kodzav") > -1 || names.trim().toLowerCase().indexOf("kod1zav") > -1) {
+                    addLink = '<td class="kodzav" id="kodzav_' + index + '"><a href="/report?repID=16&kod=' + el[names] + '">' + el[names] + '</a></td>\n'
                 }
 
 
-                if (names.toLowerCase().trim().indexOf('тип') > -1 || names.indexOf('tip') > -1) {
-                    addLink = '<td><a class="tip" id="tip_' + index + '" href="/report?repID=1&tip=' + el[names] + '">' + el[names] + '</a></td>\n'
+                if (names.toLowerCase().trim().indexOf('tip') > -1) {
+                    addLink = '<td class="tip" id="tip_' + index + '"><a href="/report?repID=1&tip=' + el[names] + '">' + el[names] + '</a></td>\n'
                 }
 
-                if (names.toLowerCase().trim().indexOf('блок') > -1 || names.toLowerCase().trim().indexOf('block') > -1) {
+                if (names.toLowerCase().trim().indexOf('blok') > -1) {
                     if (el[names] === false) { addLink = '<img class="unblock" src="/public/img/unlock.ico" width=24px; height=24px>\n' }
                     else { addLink = '<td><img class="blocked" id="blocked_' + index + '" src="/public/img/lock.ico" width=24px; height=24px></td>\n' }
                     addstyle = 'style="text-align:center; width:24px; height:24px"'
                 }
 
-                if (names.toLowerCase().trim().indexOf('ост') > -1 || names.indexOf('ost') > -1) {
+                if ((names.toLowerCase().trim().indexOf('ost') > -1) && !(names.trim().indexOf('postav') > -1)) {
                     el[names] < 1 ? addstyle = "ost red" : addstyle = "ost"
                     addLink = `<td class="${addstyle}" id="ost_${index}"> ${el[names]}</td>`
                 }
 
-                if (names == 'ВхЦена' || names == 'inPrice' || names == 'vhcena') {
+                if (names.trim().indexOf('postav') > -1) {
+                    addLink = '<td class="postav" id="postav_' + index + '"><a href="/report?repID=20&postav=' + el[names] + '">' + el[names] + '</a><td>\n'
+                }
+
+                if (names.toLowerCase() == 'inprice' || names.toLowerCase() == 'vhcena') {
                     addstyle = 'style="font-weight:bold;color:blue"'
                     addLink = '<td class="inprice" id="inprice_' + index + '">' + el[names] + '</td>\n'
                 }
@@ -258,9 +270,15 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
                 if (names.toLowerCase().indexOf('summa') > -1 || names.toLowerCase().indexOf('suma') > -1) {
                     addLink = '<td  block="' + BlockCount + '" class="Suma" id="' + names + index + '">' + el[names] + '</td>'
                 }
-                if (names.toLowerCase().indexOf('pers') > -1 || names.toLowerCase().indexOf('proc') > -1) {
+
+                if (names.toLowerCase().indexOf('pers') > -1 || names.toLowerCase().indexOf('proc') > -1 || (names.toLowerCase().indexOf('srpr') > -1)) {
                     addLink = '<td  class="pers" id="pers_' + index + '">' + el[names] + '</td>'
                 }
+
+                if (names.toLowerCase().indexOf('vhlp') > -1 || names.toLowerCase().indexOf('kol') > -1) {
+                    addLink = '<td  block="' + BlockCount + '" class="Kols" id="' + names + '_' + index + '">' + el[names] + '</td>'
+                }
+
 
                 scol = scol + addLink
             }
@@ -284,8 +302,8 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
 
 function prepareOrder() {
     var ar = []
-    //   console.log('prepOrdr')
-    setCapt('Заявка', 'zayavka')
+    var postav = getRusCapt().trim().split(':')[1]
+    setCapt('Заявка: ' + postav, 'zayavka')
     var edits = document.getElementsByClassName('edits')
     //  console.log(edits.length)
     for (var i = 0; i < edits.length; i++) {
@@ -305,6 +323,12 @@ function prepareOrder() {
     colNames.eng = ['kod', 'name', 'inprice', 'kol', 'suma']
     var html = MakeReportFromJSON('RP', colNames, ar, '')
     SetContent(html)
+    var st = JSON.stringify(ar).slice(1, -1).replaceAll('"', '@')
+    var col = { "kod": "Код", "name": "Название", "kol": "Кол", "inprice": "Цена", "suma": "Сума" }
+    var cols = JSON.stringify(col).replaceAll('"', '@')
+    //  var raw = html.replaceAll('"', '@')
+    var msg = `"message": "prepareorder", "id": "${postav}", "data": "${st}", "colNames":"${cols}"`;
+    console.log(msg) // <--- НЕ УДАЛЯТЬ!!! Delphi request
 }
 
 function RequestFromDelphi() {
@@ -346,10 +370,37 @@ function RequestFromDelphi() {
                                     if (names.indexOf('vhcena') > -1 || names.indexOf('inprice') > -1) {
                                         var msg = `"message": "zakaz_zavoz",`
                                     } else
-                                        if (names.indexOf('procent') > -1 || names.indexOf('pers') > -1) {
+                                        if (names.indexOf('proc') > -1 || names.indexOf('pers') > -1) {
                                             var msg = `"message": "priceWindow",`
-                                        } else msg = `"message": "null,"`
+                                        } else msg = `"message": "null",`
         console.log(msg + inf) // не менять!<- точка обмена с Delphi через TChronium  
-        return JSON.parse(msg + inf)
+        return msg + inf
     })
+}
+
+function SaveCurrentPage(fileName) {
+    var tbody = document.getElementsByTagName('table')[0].innerHTML;
+
+    var css = `.rowA {background-color: #99FF99;}
+                .rowB {background-color: #99CCFF;}
+                .ReportTable td{padding:4px 6px;border-bottom:1px solid #ddd;}
+                td{padding: 5px 10px 5px 10px text-align: left;}
+                tr{height: 40px;}
+                .trHeaderStyle { background-color: rgb(233, 197, 238); position: sticky;top:40px;z-index:500;}
+                .tdStyle{border: none;background-color: initial;}
+                .header{color: white;background-color: #1c4267;font-size: 26px;margin:auto;width:auto;`
+
+
+    var html = `<DOCUMENT<!DOCTYPE HTML>
+                <HTML lang="ru">
+                <HEAD >
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+                <STYLE type="text/css"> ${css}</STYLE></HEAD><BODY>
+                 <div class="header">${getRusCapt()}</div>
+                 <div class="content" id="id_content"><table class="ReportTable">${tbody}</table></div>
+                </BODY></HTML>`
+
+    var raw = html.replaceAll('"', '@')
+    var msg = `"message":"savePage","data":"${raw}","id":"${getRusCapt()}","value":"${fileName}"`
+    console.log(msg) //<-- !!! Delphi
 }
