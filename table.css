@@ -130,6 +130,15 @@ font-size: larger;
     color:red;
 }
 
+
+.potipam{
+    color:black;
+}
+.potipam:hover{
+background-color: coral;
+font-size: larger;
+}
+
 .inprice{
 color: rgb(38, 6, 251);
 font-weight: bold;
@@ -150,6 +159,7 @@ font-size: larger;
 .pers:hover, .srpr:hover, .proc:hover {
     background-color: coral;
     font-size: larger;
+    color: white;
 }
 
 .colorMax{

@@ -672,3 +672,46 @@ function SumaZayavka() {
     }
     return s;
 }
+
+function inlineStylesFromString(htmlString) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, "text/html");
+
+    // Собираем CSS из <style>
+    let cssText = "";
+    doc.querySelectorAll("style").forEach(tag => {
+        cssText += tag.textContent;
+    });
+
+    // Простая разбивка правил вида ".class { prop: value; }"
+    const rules = {};
+    cssText.split("}").forEach(rule => {
+        const parts = rule.split("{");
+        if (parts.length === 2) {
+            const selector = parts[0].trim();
+            const styles = parts[1].trim();
+            if (selector.startsWith(".")) {
+                rules[selector.slice(1)] = styles;
+            }
+        }
+    });
+
+    // Применяем к элементам
+    doc.querySelectorAll("*").forEach(el => {
+        if (el.className) {
+            const classes = el.className.split(/\s+/);
+            let inlineStyle = el.getAttribute("style") || "";
+            classes.forEach(cls => {
+                if (rules[cls]) {
+                    inlineStyle += rules[cls] + "; ";
+                }
+            });
+            if (inlineStyle) {
+                el.setAttribute("style", inlineStyle.trim());
+            }
+            el.removeAttribute("class");
+        }
+    });
+
+    return doc.documentElement.outerHTML;
+}

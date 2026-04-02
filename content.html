@@ -3,13 +3,20 @@
 
 <HEAD>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
     <link rel=stylesheet type=text/css href="../../Bin/customize.css">
+    <link rel=stylesheet type=text/css href="../../Bin/msgbox.css">
     <link rel=stylesheet type=text/css href="../../Bin/system.css">
     <link rel=stylesheet type=text/css href="../../Bin/table.css">
+
+    <script type="text/javascript" src="../../Bin/msgbox.js"></script>
     <script type="text/javascript" src="../../Bin/report.js"></script>
     <script type="text/javascript" src="../../Bin/sumParser.js"></Script>
+
     <base href="localhost:3000/">
+
     <script>
+        var CONFIRM_WND_RESULT = -1;
         var DATA =[#@prmTBodyContent];
         var COL_NAMES =#@prmColNames;
         var SORT_BY = {
@@ -44,6 +51,24 @@
     <div class="content" id="id_content"> </div> 
     <div class="iTog hidden" id="itog">#@prmiTog</div>
     <div class="hiddenData" id='engCaption'>#@prmEngCap</div>
+
+    <div class="popupMSG hidden" id="popupmsg">
+        <div class="popupmsg_box">
+            <div class="popupmsg_header"></div>
+            <div class="popupmsg_msg"></div>
+            <button class="popupmsg_btn" onclick="popupmsgBtnClick()">OK</button>
+        </div>
+    </div>    
+
+      <div class="confirm_WND hidden" id="confirmwnd">
+        <div class="confirmwnd_box">
+            <div class="confirmwnd_header"></div>
+            <div class="confirmwnd_msg"></div>
+            <button class="confirmwnd_btn_YES" onclick="confirmAnswer('YES')">Yes</button>
+            <button class="confirmwnd_btn_NO" onclick="confirmAnswer('NO')">No</button>
+            <button class="confirmwnd_btn_CANCEL" onclick="confirmAnswer('CANSEL')">Cancel</button>    
+        </div>
+    </div>
 
 </BODY>
 

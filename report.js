@@ -151,7 +151,7 @@ function showBtn(see, btn) {
     if (see) document.getElementById(btn).classList.toggle('hidden')
 }
 
-function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
+function MakeReportFromJSON(tabName, colNames, jsonData, sortBy, offset = null) {
 
     var data = jsonData
     var cols = colNames.eng;
@@ -159,7 +159,7 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
     //  console.log(COL_NAMES.rus,DATA[0],Object.keys(DATA[1]));
     var sortByTip = false
     var zakaz = getEngCapt().indexOf('zakaz1tovara') > -1 ? true : false
-    var zkz = 0
+    var zkz = 0 + (offset === null ? 0 : offset);
     var header = '<table class="' + tabName + '" id=id_"' + tabName + '"><tbody>\n'
     var sortByEng = sortBy.eng
     if (sortBy.rus) {
@@ -197,12 +197,12 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
         for (var i = 0; i < cols.length; i++) {
             var names = cols[i]
             var addstyle = ''
-            //  console.log('row=',index,i,') col=',names)
+            // console.log('row=', index, i, ') col=', names)
             if (!(sortByTip && names.toLowerCase() === sortByEng.toLowerCase())) {
                 var addLink = `<td class="${names}" id="${names}_${index}">${el[names]}</td>`;
 
                 if (names == 'barkod') {
-                    addLink = '<td class="barkod" id="' + tabName + 'brkd_' + index + ' barkod="' + el[names] + '>' + el[names] + '</td>'
+                    addLink = `<td class="barkod" id="barkod_${index}">${el[names]}</td>`
                 }
 
                 if (names == 'kod' || names === 'kodtov' || names == 'kod1tovara') {
@@ -218,20 +218,26 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
                 }
 
                 if (names.indexOf('kodzak') > -1 || names.indexOf('kod1zak') > -1) {
-                    addLink = '<td class="kodzak" id="kodzak_' + index + '"><a href="/report?repID=15&kod=' + el[names] + '">' + el[names] + '</a></td>'
+                    //addLink = '<td class="kodzak" id="kodzak_' + index + '"><a href="/report?repID=15&kod=' + el[names] + '">' + el[names] + '</a></td>'
+                    addLink = `<td class="kodzak" id="kodzak_${index}">${el[names]}</td>`
                 }
 
                 if (names.trim().toLowerCase().indexOf('klient') > -1) {
-                    addLink = '<td class="client" id="klient_' + index + '"><a href="/report?repID=14&client=' + el[names] + '">' + el[names] + '</a></td>\n'
+                    addLink = `<td class="client" id="client_${index}">${el[names]}</td>`
+                    //  addLink = '<td class="client" id="klient_' + index + '"><a href="/report?repID=14&client=' + el[names] + '">' + el[names] + '</a></td>\n'
                 }
 
                 if (names.trim().toLowerCase().indexOf("kodzav") > -1 || names.trim().toLowerCase().indexOf("kod1zav") > -1) {
-                    addLink = '<td class="kodzav" id="kodzav_' + index + '"><a href="/report?repID=16&kod=' + el[names] + '">' + el[names] + '</a></td>\n'
+                    addLink = `<td class="kodzav" id="kodzav_${index}">${el[names]}</td>`
+                    //  addLink = '<td class="kodzav" id="kodzav_' + index + '"><a href="/report?repID=16&kod=' + el[names] + '">' + el[names] + '</a></td>\n'
                 }
 
 
                 if (names.toLowerCase().trim().indexOf('tip') > -1) {
-                    addLink = '<td class="tip" id="tip_' + index + '"><a href="/report?repID=1&tip=' + el[names] + '">' + el[names] + '</a></td>\n'
+                    if (getEngCapt().indexOf('po1tipam') > -1) {
+                        addLink = `<td class="potipam" id="potipam_${index}">${el[names]}</td>`
+                    } else
+                        addLink = '<td class="tip" id="tip_' + index + '">' + el[names] + '</td>'
                 }
 
                 if (names.toLowerCase().trim().indexOf('blok') > -1) {
@@ -245,8 +251,9 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
                     addLink = `<td class="${addstyle}" id="ost_${index}"> ${el[names]}</td>`
                 }
 
-                if (names.trim().indexOf('postav') > -1) {
-                    addLink = '<td class="postav" id="postav_' + index + '"><a href="/report?repID=20&postav=' + el[names] + '">' + el[names] + '</a><td>\n'
+                if (names.toLowerCase().trim().indexOf('postav') > -1) {
+                    addLink = '<td class="postav" id="postav_' + index + '">' + el[names] + '</td>'
+                    //addLink = '<td class="postav" id="postav_' + index + '"><a href="/report?repID=20&postav=' + el[names] + '">' + el[names] + '</a><td>\n'
                 }
 
                 if (names.toLowerCase() == 'inprice' || names.toLowerCase() == 'vhcena') {
@@ -277,6 +284,17 @@ function MakeReportFromJSON(tabName, colNames, jsonData, sortBy) {
 
                 if (names.toLowerCase().indexOf('vhlp') > -1 || names.toLowerCase().indexOf('kol') > -1) {
                     addLink = '<td  block="' + BlockCount + '" class="Kols" id="' + names + '_' + index + '">' + el[names] + '</td>'
+                }
+                if (names == 'btnUnChain') {
+                    addLink = `<td  class="btnUnChain" id="btnUnChain_${index}>">
+                    <button onclick="btnUnChainClick('${index}')">UnChain</button></td>`
+                }
+                if (names == 'btnChain') {
+                    addLink = `<td  class="btnChain" id="btnChain_${index}>">
+                    <button onclick="btnChainClick('${index}')">Chain</button></td>`
+                }
+                if (names == 'edit') {
+                    addLink = `<td  class="defEdit"><input type="text" id="edit_${index}"></td>`
                 }
 
 
@@ -314,20 +332,36 @@ function prepareOrder() {
             var name = document.getElementById('name_' + id).innerText
             var inprice = document.getElementById('inprice_' + id).innerText
             var kol = edits[i].value;
+            var barkod = document.getElementById('barkod_' + id)
             var suma = Number(kol * parseFloat(inprice))
-            ar.push({ kod: kod, name: name, inprice: inprice, kol: kol, suma: suma })
+            var no = Number(document.getElementById('kod_' + id).parentElement.getAttribute('block'))
+            var tip = document.getElementById('hBlock_' + no).innerText;
+            var jsn = { tip: tip, kod: kod, name: name, inprice: inprice, kol: kol, suma: suma }
+            if (barkod) jsn.barkod = barkod.innerText
+            ar.push(jsn)
+
         }
     }
     var colNames = {}
-    colNames.rus = ['Код', 'Название', 'Кол', 'Цена', 'Сума']
-    colNames.eng = ['kod', 'name', 'inprice', 'kol', 'suma']
-    var html = MakeReportFromJSON('RP', colNames, ar, '')
+    if (!barkod) {
+        colNames.rus = ['Тип', 'Код', 'Название', 'Кол', 'Цена', 'Сума']
+        colNames.eng = ['tip', 'kod', 'name', 'kol', 'inprice', 'suma']
+        var col = { "tip": "Тип", "kod": "Код", "name": "Название", "kol": "Кол", "inprice": "Цена", "suma": "Сума" }
+        var html = MakeReportFromJSON('RP', colNames, ar, '')
+    } else {
+        colNames.rus = ['Тип', 'Баркод', 'Код', 'Название', 'Кол', 'Цена', 'Сума']
+        colNames.eng = ['tip', 'barkod', 'kod', 'name', 'kol', 'inprice', 'suma']
+        var col = { "tip": "Тип", "barkod": "Баркод", "kod": "Код", "name": "Название", "kol": "Кол", "inprice": "Цена", "suma": "Сума" }
+
+        var html = MakeReportFromJSON('RP', colNames, ar, '', 1)
+    }
+
     SetContent(html)
+
     var st = JSON.stringify(ar).slice(1, -1).replaceAll('"', '@')
-    var col = { "kod": "Код", "name": "Название", "kol": "Кол", "inprice": "Цена", "suma": "Сума" }
+
     var cols = JSON.stringify(col).replaceAll('"', '@')
-    //  var raw = html.replaceAll('"', '@')
-    var msg = `"message": "prepareorder", "id": "${postav}", "data": "${st}", "colNames":"${cols}"`;
+    var msg = `"message": "prepareorder", "id": "${postav}", "data": "${st}", "colNames":"${cols}","value":"Заявка-${postav}","sortByRus":"Тип","sortByEng":"tip"`;
     console.log(msg) // <--- НЕ УДАЛЯТЬ!!! Delphi request
 }
 
@@ -336,51 +370,37 @@ function RequestFromDelphi() {
         var el = e.target
         if (!el) return
         var no = el.id.split('_')[1]
+
         var kod = document.getElementById('kod_' + no)
-        if (!kod) return
+        var potipam = document.getElementById('potipam_' + no)
+        var kodzak = document.getElementById('kodzak_' + no)
+        var kodzav = document.getElementById('kodzav_' + no)
+        var postav = document.getElementById('postav_' + no)
+        var client = document.getElementById('client_' + no)
+        var tip = document.getElementById('tip_' + no)
+
+        if (!(kod || potipam || kodzak || kodzav || postav || client || tip)) return
+
+        var msg = `"message":"${el.className}_click",`
         var names = el.className;
-        var inf = `"id": "${el.id}", "className": "${names}", "value": "${kod.innerText}"`
+        var inf = `"id": "${el.id}", "className": "${el.className}", "value": "${el.innerText}"`
 
-        if (names.indexOf('kod') > -1) {
-            var msg = `"message": "searchBy_Kod",`
+        if (names.indexOf('vhcena') > -1 || names.indexOf('inprice') > -1) {
+            msg = `"message": "zakaz_zavoz",`
+            inf = `"id": "${el.id}", "className": "${el.className}", "value": "${el.innerText}","data":"${kod.innerText}"`
         } else
-            if (names.indexOf('nazv') > -1 || names.indexOf('name') > -1) {
-                var msg = `"message": "searchBy_Name",`
-            } else
-
-                if (names.indexOf('kodzak') > -1) {
-                    var msg = `"message": "searchBy_Kodzak",`
-                } else
-
-                    if (names.indexOf('klient') > -1) {
-                        var msg = `"message": "searchBy_Client",`
-                    } else
-
-                        if (names.indexOf('postav') > -1) {
-                            var msg = `"message": "searchBy_Postav",`
-                        } else
-
-                            if (names.indexOf("kodzav") > -1) {
-                                var msg = `"message": "searchBy_Kodzav",`
-                            } else
-
-                                if (names.indexOf('tip') > -1) {
-                                    var msg = `"message": "searchBy_Tip",`
-                                } else
-                                    if (names.indexOf('vhcena') > -1 || names.indexOf('inprice') > -1) {
-                                        var msg = `"message": "zakaz_zavoz",`
-                                    } else
-                                        if (names.indexOf('proc') > -1 || names.indexOf('pers') > -1) {
-                                            var msg = `"message": "priceWindow",`
-                                        } else msg = `"message": "null",`
+            if (names.indexOf('proc') > -1 || names.indexOf('pers') > -1) {
+                msg = `"message": "priceWindow",`
+                inf = `"id": "${el.id}", "className": "${el.className}", "value": "${el.innerText}","data":"${kod.innerText}"`
+            }
         console.log(msg + inf) // не менять!<- точка обмена с Delphi через TChronium  
         return msg + inf
     })
 }
 
 function SaveCurrentPage(fileName) {
-    var tbody = document.getElementsByTagName('table')[0].innerHTML;
-
+    var tbody = document.getElementsByTagName('table')[0];
+    // console.log(fileName);
     var css = `.rowA {background-color: #99FF99;}
                 .rowB {background-color: #99CCFF;}
                 .ReportTable td{padding:4px 6px;border-bottom:1px solid #ddd;}
@@ -391,16 +411,49 @@ function SaveCurrentPage(fileName) {
                 .header{color: white;background-color: #1c4267;font-size: 26px;margin:auto;width:auto;`
 
 
-    var html = `<DOCUMENT<!DOCTYPE HTML>
-                <HTML lang="ru">
-                <HEAD >
+    var html = `<!DOCTYPE html>
+                <html lang="ru">
+                <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
-                <STYLE type="text/css"> ${css}</STYLE></HEAD><BODY>
+                <style type="text/css"> ${css}</style></head><body>
                  <div class="header">${getRusCapt()}</div>
-                 <div class="content" id="id_content"><table class="ReportTable">${tbody}</table></div>
-                </BODY></HTML>`
+                 <div class="content" id="id_content"><table class="ReportTable">${tbody.outerHTML}</table></div>
+                </body></html>`
 
-    var raw = html.replaceAll('"', '@')
+    const inlined = inlineStylesFromString(html);
+
+    var raw = inlined.replaceAll('"', '@')
     var msg = `"message":"savePage","data":"${raw}","id":"${getRusCapt()}","value":"${fileName}"`
     console.log(msg) //<-- !!! Delphi
+}
+
+
+function btnUnChainClick(index) {
+    var barkod = document.getElementById('barkod_' + index)
+    if (!barkod) return
+    var msg = `"message":"UnChain","data":"${barkod.innerText}"`
+    console.log(msg); //<-- !!! Delphi
+}
+
+async function btnChainClick(index) {
+    try {
+        var kod = document.getElementById('kod_' + index)
+        var val = document.getElementById('edit_' + index)
+        var barkod = document.getElementById('barkod_' + index)
+        var name = document.getElementById('name_' + index)
+        var artikul = document.getElementById('artikul_' + index)
+        if (!(val && kod)) return
+        if (val.value == '') {
+            popupMSG("Поле Код:", " Введите значение")
+            return
+        }
+        const res = await confirm_WND(`Связать коды: ${barkod.innerText} = ${val.value}`,
+            '<p>' + artikul.innerText + '</p><p>' + name.innerText + '</p>')
+        if (res == 'YES') {
+            var msg = `"message":"Chain","data":"${barkod.innerText}","value":"${val.value}"`
+            console.log(msg); //<-- !!! Delphi
+        }
+    } catch (err) {
+        console.log(err);
+    }
 }
